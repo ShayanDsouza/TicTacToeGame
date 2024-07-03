@@ -36,6 +36,7 @@ PLAYER_1 = 0
 PLAYER_2 = 1
 player = PLAYER_1
 
+
 def play_turn(current_player):
     global message
     message = ""  # Reset the message at the start of each turn
@@ -68,6 +69,11 @@ def draw_icons():
 # Ensure you have these global variables defined at the start
 message = ""
 
+
+def has_equal_icons(elements, game_player):
+    return all(element == game_player for element in elements)
+
+
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -78,6 +84,7 @@ while running:
     screen.fill("white")
     screen.blit(GRID, (0, 0))
     pygame.event.wait()
+    play_turn(player)
+    draw_icons()
 
 pygame.quit()
-
