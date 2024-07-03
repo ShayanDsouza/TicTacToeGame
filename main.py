@@ -37,13 +37,36 @@ PLAYER_2 = 1
 player = PLAYER_1
 
 def play_turn(current_player):
+    global message
+    message = ""  # Reset the message at the start of each turn
     curr_coordinate = pygame.math.Vector2(pygame.mouse.get_pos())
     normalized_coordinate = curr_coordinate // PIXEL_WIDTH
     if pygame.mouse.get_pressed()[0]:
         col, row = map(int, normalized_coordinate)
-        board[row][col] = current_player
-        global player
-        player = 1 - player
+        if board[row][col] == -1:  # Assuming -1 indicates an empty cell
+            board[row][col] = current_player
+            global player
+            player = 1 - player
+        else:
+            message = "Already an icon there"
+
+
+def draw_icons():
+    for i, row in enumerate(board):
+        for j, col in enumerate(board[i]):
+            if board[i][j] == 0:
+                screen.blit(ICON_O, (j * PIXEL_WIDTH, i * PIXEL_WIDTH))
+            elif board[i][j] == 1:
+                screen.blit(ICON_X, (j * PIXEL_WIDTH, i * PIXEL_WIDTH))
+
+    if message:  # Check if there's a message to display
+        font = pygame.font.Font(None, 36)  # You can choose your font and size
+        text = font.render(message, True, (255, 0, 0))  # Render the message in red color
+        screen.blit(text, (10, 10))  # Position the text on the screen
+
+
+# Ensure you have these global variables defined at the start
+message = ""
 
 while running:
     for event in pygame.event.get():
