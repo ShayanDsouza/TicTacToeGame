@@ -29,12 +29,12 @@ def load_icon(path, resolution):
 
 ICON_X = load_icon('x-icon.png', [PIXEL_WIDTH, PIXEL_WIDTH])
 ICON_O = load_icon('o-icon.png', [PIXEL_WIDTH, PIXEL_WIDTH])
+
 GRID = load_icon('grid.jpg', [WINDOW_WIDTH, WINDOW_WIDTH])
 
 PLAYER_1 = 0
 PLAYER_2 = 1
 player = PLAYER_1
-
 
 def play_turn(current_player):
     curr_coordinate = pygame.math.Vector2(pygame.mouse.get_pos())
@@ -44,7 +44,6 @@ def play_turn(current_player):
         board[row][col] = current_player
         global player
         player = 1 - player
-
 
 while running:
     for event in pygame.event.get():
@@ -58,3 +57,4 @@ while running:
     pygame.event.wait()
 
 pygame.quit()
+
