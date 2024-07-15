@@ -73,6 +73,22 @@ message = ""
 def has_equal_icons(elements, game_player):
     return all(element == game_player for element in elements)
 
+def has_winning_row(game_player):
+    return has_equal_icons(board[0], game_player) \
+        or has_equal_icons(board[1], game_player) \
+        or has_equal_icons(board[2], game_player)
+
+
+def has_winning_col(game_player):
+    return has_equal_icons([board[0][0], board[1][0], board[2][0]], game_player) \
+        or has_equal_icons([board[0][1], board[1][1], board[2][1]], game_player) \
+        or has_equal_icons([board[0][2], board[1][2], board[2][2]], game_player)
+
+
+def has_winning_diagonal(game_player):
+    return has_equal_icons([board[0][0], board[1][1], board[2][2]], game_player) \
+        or has_equal_icons([board[0][2], board[1][1], board[2][0]], game_player)
+
 
 while running:
     for event in pygame.event.get():
@@ -88,3 +104,4 @@ while running:
     draw_icons()
 
 pygame.quit()
+
