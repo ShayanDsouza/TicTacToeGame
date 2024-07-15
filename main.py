@@ -73,6 +73,7 @@ message = ""
 def has_equal_icons(elements, game_player):
     return all(element == game_player for element in elements)
 
+
 def has_winning_row(game_player):
     return has_equal_icons(board[0], game_player) \
         or has_equal_icons(board[1], game_player) \
@@ -88,6 +89,22 @@ def has_winning_col(game_player):
 def has_winning_diagonal(game_player):
     return has_equal_icons([board[0][0], board[1][1], board[2][2]], game_player) \
         or has_equal_icons([board[0][2], board[1][1], board[2][0]], game_player)
+
+
+def is_winner(game_player):
+    return has_winning_row(game_player) \
+        or has_winning_col(game_player) \
+        or has_winning_diagonal(game_player)
+
+
+def check_victory():
+    global winner_text
+    if is_winner(PLAYER_1):
+        winner_text = font.render('Player 1 WON!', True, 'green')
+        return True
+    if is_winner(PLAYER_2):
+        winner_text = font.render('Player 2 WON!', True, 'green')
+        return True
 
 
 while running:
