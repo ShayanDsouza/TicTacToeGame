@@ -16,9 +16,9 @@ textRect.center = (WINDOW_WIDTH // 2 - PIXEL_WIDTH // 2, WINDOW_WIDTH // 2)
 running = True
 
 board = [
-    [None, None, None],
-    [None, None, None],
-    [None, None, None]
+    [-1, -1, -1],
+    [-1, -1, -1],
+    [-1, -1, -1]
 ]
 
 
@@ -100,25 +100,42 @@ def is_winner(game_player):
 def check_victory():
     global winner_text
     if is_winner(PLAYER_1):
-        winner_text = font.render('Player 1 WON!', True, 'green')
+        winner_text = font.render('Player 1 WON!', True, 'blue')
+        screen.blit(winner_text, textRect)
         return True
     if is_winner(PLAYER_2):
-        winner_text = font.render('Player 2 WON!', True, 'green')
+        winner_text = font.render('Player 2 WON!', True, 'red')
+        screen.blit(winner_text, (10, 10))
         return True
+    return False
+
+
+def is_board_full():
+    return all(all(cell != -1 for cell in row) for row in board)
 
 
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+        if is_board_full():
+            winner_text = font.render('DRAW!', True, 'black')
+            screen.blit(winner_text, textRect)
+            pygame.display.flip()
+            pygame.time.wait(3000)
 
     # RENDER YOUR GAME HERE
-    pygame.display.flip()
     screen.fill("white")
     screen.blit(GRID, (0, 0))
-    pygame.event.wait()
     play_turn(player)
     draw_icons()
 
-pygame.quit()
+    if check_victory():
+        pygame.display.flip()
+        pygame.time.wait(3000)  # Wait for 3 seconds before quitting
+        running = False
 
+    pygame.display.flip()
+    clock.tick(30)
+
+pygame.quit()
