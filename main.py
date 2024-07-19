@@ -30,7 +30,7 @@ def load_icon(path, resolution):
 ICON_X = load_icon('x-icon.png', [PIXEL_WIDTH, PIXEL_WIDTH])
 ICON_O = load_icon('o-icon.png', [PIXEL_WIDTH, PIXEL_WIDTH])
 
-GRID = load_icon('grid.jpg', [WINDOW_WIDTH, WINDOW_WIDTH])
+GRID = load_icon('newGrid.jpg', [WINDOW_WIDTH, WINDOW_WIDTH])
 
 PLAYER_1 = 0
 PLAYER_2 = 1
@@ -121,4 +121,3 @@ while running:
     draw_icons()
 
 pygame.quit()
-
